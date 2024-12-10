@@ -17,6 +17,18 @@ api_url = "http://127.0.0.1:8001/api/v1/emotion"
 
 cap = cv2.VideoCapture(video if video != "" else 0)
 
+def translate_emotion(emotion: str) -> str:
+    translations = {
+        'angry': 'Raiva',
+        'disgust': 'Nojo',
+        'fear': 'Medo',
+        'happy': 'Felicidade',
+        'sad': 'Tristeza',
+        'surprise': 'Surpresa',
+        'neutral': 'Neutro',
+    }
+    return translations.get(emotion, '')
+
 def send_emotion_to_api(workspace_id, emotion):
     try:
         payload = {"workspace_id": workspace_id, "emotion": emotion}
@@ -43,7 +55,10 @@ while True:
         box = emotion['box']
         emotion_label = max(emotion['emotions'], key=emotion['emotions'].get)
 
+        translated_emotion = translate_emotion(emotion_label)
+
         current_time = time.time()
+        
         if emotion_label != last_emotion and (current_time - last_emotion_time) > debounce_interval:
             print(f"Emoção mudou para: {emotion_label}")
             send_emotion_in_thread(workspace_id, emotion_label)
@@ -51,7 +66,7 @@ while True:
             last_emotion_time = current_time
         
         cv2.rectangle(frame, (box[0], box[1]), (box[0] + box[2], box[1] + box[3]), (0, 255, 0), 2)
-        cv2.putText(frame, emotion_label, (box[0], box[1] - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+        cv2.putText(frame, translated_emotion, (box[0], box[1] - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
     
     cv2.imshow('Emotions', frame)
     if cv2.waitKey(1) & 0xFF == ord('q'):
