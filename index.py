@@ -4,6 +4,8 @@ import requests
 import time
 import threading
 
+from utils import translate_emotion
+
 emotion_detector = FER()
 
 video = ""
@@ -16,18 +18,6 @@ workspace_id = 1
 api_url = "http://127.0.0.1:8001/api/v1/emotion"
 
 cap = cv2.VideoCapture(video if video != "" else 0)
-
-def translate_emotion(emotion: str) -> str:
-    translations = {
-        'angry': 'Raiva',
-        'disgust': 'Nojo',
-        'fear': 'Medo',
-        'happy': 'Felicidade',
-        'sad': 'Tristeza',
-        'surprise': 'Surpresa',
-        'neutral': 'Neutro',
-    }
-    return translations.get(emotion, '')
 
 def send_emotion_to_api(workspace_id, emotion):
     try:
