@@ -10,10 +10,10 @@ emotion_detector = FER()
 # Variables for debounce
 last_emotion = None
 last_emotion_time = 1
-debounce_interval = 1
+debounce_interval = 0.50
 
 # file source (0 for webcam)
-file = "C:/Users/Tip/Desktop/Giovani/outros/facial-emotion-detector/files/videos/completo-01.MP4"
+file = "C:/Users/Tip/Desktop/Giovani/outros/facial-emotion-detector/files/videos/raiva.mp4"
 
 cap = cv2.VideoCapture(file)
 
@@ -32,7 +32,7 @@ while True:
 
         current_time = time.time()
         
-        if emotion_label != last_emotion and (current_time - last_emotion_time) > debounce_interval:
+        if emotion_label != last_emotion or (current_time - last_emotion_time) > debounce_interval:
             send_emotion_in_thread(emotion_label)
             last_emotion = emotion_label
             last_emotion_time = current_time
