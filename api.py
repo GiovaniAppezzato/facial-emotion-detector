@@ -1,7 +1,11 @@
 import requests
 import threading
 
-def send_emotion_to_api(workspace_id, emotion):
+# Environment variables
+workspace_id = 1
+api_url = "http://127.0.0.1:8001/api/v1/emotion"
+
+def send_emotion_to_api(emotion):
     try:
         payload = {"workspace_id": workspace_id, "emotion": emotion}
         response = requests.post(api_url, json=payload)
@@ -12,8 +16,8 @@ def send_emotion_to_api(workspace_id, emotion):
             print(f"Error sending emotion: {response.text}")
             
     except Exception as e:
-        print(f"Error sending emotion: {e}")
+        print(f"Error sending emotion2 wadasdas: {e}")
 
-def send_emotion_in_thread(workspace_id, emotion):
-    thread = threading.Thread(target=send_emotion_to_api, args=(workspace_id, emotion))
+def send_emotion_in_thread(emotion):
+    thread = threading.Thread(target=send_emotion_to_api, args=(emotion,))
     thread.start()

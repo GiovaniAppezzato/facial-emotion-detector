@@ -10,11 +10,7 @@ emotion_detector = FER()
 # Variables for debounce
 last_emotion = None
 last_emotion_time = 1
-debounce_interval = 3
-
-# Environment variables
-workspace_id = 1
-api_url = "http://127.0.0.1:8001/api/v1/emotion"
+debounce_interval = 1
 
 # file source (0 for webcam)
 file = "C:/Users/Tip/Desktop/Giovani/outros/facial-emotion-detector/files/videos/completo-01.MP4"
@@ -37,8 +33,7 @@ while True:
         current_time = time.time()
         
         if emotion_label != last_emotion and (current_time - last_emotion_time) > debounce_interval:
-            print(f"Emoção mudou para: {emotion_label}")
-            send_emotion_in_thread(workspace_id, emotion_label)
+            send_emotion_in_thread(emotion_label)
             last_emotion = emotion_label
             last_emotion_time = current_time
         
