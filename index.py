@@ -16,10 +16,10 @@ debounce_interval = 3
 workspace_id = 1
 api_url = "http://127.0.0.1:8001/api/v1/emotion"
 
-# Video source (0 for webcam)
-video = ""
+# file source (0 for webcam)
+file = "C:/Users/Tip/Desktop/Giovani/outros/facial-emotion-detector/files/videos/completo-01.MP4"
 
-cap = cv2.VideoCapture(video if video != "" else 0)
+cap = cv2.VideoCapture(file)
 
 while True:
     ret, frame = cap.read()
