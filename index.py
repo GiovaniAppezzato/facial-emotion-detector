@@ -13,7 +13,7 @@ last_emotion_time = 1
 debounce_interval = 0.50
 
 # file source (0 for webcam)
-file = "C:/Users/Tip/Desktop/Giovani/outros/facial-emotion-detector/files/videos/raiva.mp4"
+file = "C:/Users/Tip/Desktop/Giovani/outros/facial-emotion-detector/files/videos/neutro.mp4"
 
 cap = cv2.VideoCapture(file)
 
